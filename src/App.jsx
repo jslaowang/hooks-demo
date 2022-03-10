@@ -1,29 +1,18 @@
-import react, { useState, useEffect, useCallback } from "react";
-
-function Child({ callback }) {
-  useEffect(() => {
-    callback()
-  }, [callback])
-
-  return <div>子组件</div>
-}
+import react, { useState, useEffect } from "react";
 
 function App() {
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [kw, setKw] = useState('')
+  const [count, setCount] = useState(0)
 
-  const callback = useCallback(() => {
-    console.log('我是callback');
-  }, [])
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('点击次数: ', count);
+    }, 500);
+  })
 
   return (
     <div className="App">
-      <input type="text" onChange={(e) => setName(e.target.value)} />
-      <input type="text" onChange={(e) => setPhone(e.target.value)} />
-      <input type="text" onChange={(e) => setKw(e.target.value)} />
-      <Child callback={callback} />
-    </div>
+      <button onClick={() => setCount(count + 1)}>点击{count}次</button>
+    </div >
   )
 }
 
