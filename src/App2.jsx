@@ -1,9 +1,9 @@
-import react, { useState, useEffect, useCallback } from "react";
+import react, { useState, useEffect, useMemo } from "react";
 
-function Child({ callback }) {
+function Child({ data }) {
   useEffect(() => {
-    callback()
-  }, [callback])
+    console.log('查询条件', data);
+  }, [data])
 
   return <div>子组件</div>
 }
@@ -13,16 +13,17 @@ function App() {
   const [phone, setPhone] = useState('')
   const [kw, setKw] = useState('')
 
-  const callback = useCallback(() => {
-    console.log('我是callback');
-  }, [])
+  const data = useMemo(() => ({
+    name,
+    phone
+  }), [name, phone])
 
   return (
     <div className="App">
       <input type="text" onChange={(e) => setName(e.target.value)} />
       <input type="text" onChange={(e) => setPhone(e.target.value)} />
       <input type="text" onChange={(e) => setKw(e.target.value)} />
-      <Child callback={callback} />
+      <Child data={data} />
     </div>
   )
 }
